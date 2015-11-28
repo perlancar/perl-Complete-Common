@@ -1,5 +1,8 @@
 Revision history for Complete-Common
 
-0.01    2015-09-18 (PERLANCAR) (unreleased)
+0.17    2015-11-28 (PERLANCAR)
 
-        - First release, split from Complete.
+        - First release, split from Complete distribution and add
+          Complete::Args.
+
+        - Add setting: $OPT_WORD_MODE.
