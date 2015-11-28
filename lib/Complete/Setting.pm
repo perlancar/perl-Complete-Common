@@ -8,6 +8,7 @@ use strict;
 use warnings;
 
 our $OPT_CI          = ($ENV{COMPLETE_OPT_CI}          // 1) ? 1:0;
+our $OPT_WORD_MODE   = ($ENV{COMPLETE_OPT_WORD_MODE}   // 1) ? 1:0;
 our $OPT_FUZZY       = ($ENV{COMPLETE_OPT_FUZZY}       // 1)+0;
 our $OPT_MAP_CASE    = ($ENV{COMPLETE_OPT_MAP_CASE}    // 1) ? 1:0;
 our $OPT_EXP_IM_PATH = ($ENV{COMPLETE_OPT_EXP_IM_PATH} // 1) ? 1:0;
@@ -33,12 +34,33 @@ But users can override this setting by providing value to C<ci> argument.
 
 In bash/readline, this is akin to setting C<completion-ignore-case>.
 
+=head2 C<$Complete::Setting::OPT_WORD_MODE> => bool (default: from COMPLETE_OPT_WORD_MODE or 1)
+
+If set to 1, enable word-based a.k.a. word-mode matching. This setting should be
+consulted as the default for all C<word_mode> argument in the C<complete_*>
+functions. But users can override this setting by providing value to
+C<word_mode> argument.
+
+Word mode matching is normally only done when exact matching fails to return any
+candidate. To give you an idea of how word-based matching works, you can run
+Emacs and try its completion of filenames (C<C-x C-f>) or function names
+(C<M-x>). Basically, each string is split into words and matching is tried for
+all available word even non-adjacent ones. For example, if you have C<dua-d> and
+the choices are (C<dua-tiga>, C<dua-empat>, C<dua-lima-delapan>) then
+C<dua-lima-delapan> will match because C<d> matches C<delapan> even though the
+word is not adjacent. This is convenient when you have strings that are several
+or many words long: you can just type the word that you remember even though the
+word is positioned near the end of the string.
+
 =head2 C<$Complete::Setting::OPT_FUZZY> => int (default: from COMPLETE_OPT_FUZZY or 1)
 
 Enable fuzzy matching. The greater the number, the greater the tolerance. To
 disable fuzzy matching, set to 0. This setting should be consulted for every
 C<fuzzy> argument in the C<complete_*> functions. But users can override this
 setting by providing value to C<fuzzy> argumnt.
+
+Fuzzy matching is normally only done when exact matching and word-mode matching
+fail to return any candidate.
 
 =head2 C<$Complete::Setting::OPT_MAP_CASE> => bool (default: from COMPLETE_OPT_MAP_CASE or 1)
 
@@ -84,6 +106,10 @@ Set default for C<$Complete::Setting::OPT_CI>.
 =head2 COMPLETE_OPT_FUZZY => int
 
 Set default for C<$Complete::Setting::OPT_FUZZY>.
+
+=head2 COMPLETE_OPT_WORD_MODE => bool
+
+Set default for C<$Complete::Setting::OPT_WORD_MODE>.
 
 =head2 COMPLETE_OPT_MAP_CASE => bool
 
