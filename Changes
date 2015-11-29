@@ -1,5 +1,13 @@
 Revision history for Complete-Common
 
+0.21    2015-11-29 (PERLANCAR)
+
+	- [Removed] Remove %args_common_opts, %args_path_opts, for more
+	  consistent experience we want to encourage complete_* functions
+	  to remove their behavior options and simply use the global $OPT_*
+	  options.
+
+
 0.20    2015-11-29 (PERLANCAR)
 
 	- [Bugfix] Do not export $OPT_* because they will be copied and
