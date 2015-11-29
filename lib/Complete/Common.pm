@@ -12,12 +12,6 @@ our @EXPORT_OK = qw(
                        %arg_word
                        %args_common_opts
                        %args_path_opts
-                       $OPT_CI
-                       $OPT_WORD_MODE
-                       $OPT_FUZZY
-                       $OPT_MAP_CASE
-                       $OPT_EXP_IM_PATH
-                       $OPT_DIG_LEAF
                );
 
 our %EXPORT_TAGS = (
