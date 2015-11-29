@@ -1,5 +1,11 @@
 Revision history for Complete-Common
 
+0.20    2015-11-29 (PERLANCAR)
+
+	- [Bugfix] Do not export $OPT_* because they will be copied and
+	  setting Complete::Common's version won't take effect later.
+
+
 0.19    2015-11-29 (PERLANCAR)
 
 	- Fix Exporter setting, derp.
