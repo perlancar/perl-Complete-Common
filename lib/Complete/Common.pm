@@ -10,8 +10,6 @@ use warnings;
 use Exporter qw(import);
 our @EXPORT_OK = qw(
                        %arg_word
-                       %args_common_opts
-                       %args_path_opts
                );
 
 our %EXPORT_TAGS = (
@@ -25,84 +23,6 @@ our %arg_word = (
         pos=>0,
         req=>1,
     },
-);
-
-our %args_common_opts = (
-    ci => {
-        summary => 'Whether to do case-insensitive search',
-        schema => 'bool',
-    },
-    word_mode => {
-        summary => 'Whether to enable word-mode matching',
-        schema => 'bool',
-        description => <<'_',
-
-If set to 1, enable word-mode matching. With this mode, the string to be
-searched as well as each choice string are first split into words and matching
-is tried for all available word even non-adjacent ones. For example, if you have
-`a-b` and the choices are (`a-f-gan`, `a-f-bar`, `a-f-g-bar`) then `a-f-bar` and
-`a-f-g-bar` will match because the `b` matches `bar` even though the word is not
-adjacent. This is convenient when you have strings that are several or many
-words long: you can just type the word that you remember even though the word is
-positioned near the end of the string. Word mode matching is normally only done
-when exact matching fails to return any candidate.
-
-Word-mode matching normally will only be attempted when normal mode matching
-fails to return any candidate.
-
-_
-    },
-    fuzzy => {
-        summary => 'The level of fuzzy matching',
-        schema => ['int*', min=>0],
-        description => <<'_',
-
-If set to at least 1, will enable fuzzy matching (matching even though there are
-some spelling mistakes). The greater the number, the greater the tolerance. To
-disable fuzzy matching, set to 0.
-
-Fuzzy matching is normally only done when exact matching and word-mode matching
-fail to return any candidate.
-
-_
-    },
-    map_case => {
-        summary => 'Whether to treat _ (underscore) and - (dash) as the same',
-        schema => 'bool',
-        description => <<'_',
-
-This is another convenience option like `ci`, where you can type `-` (without
-pressing Shift, at least in US keyboard) and can still complete `_` (underscore,
-which is typed by pressing Shift, at least in US keyboard).
-
-This option mimics similar option in bash/readline: `completion-map-case`.
-
-_
-    },
-);
-
-our %args_path_opts = (
-    exp_im_path => {
-        summary => 'Whether to expand intermediate paths',
-        schema  => 'bool',
-        description => <<'_',
-
-This option mimics feature in zsh where when you type something like `cd
-/h/u/b/myscript` and get `cd /home/ujang/bin/myscript` as a completion answer.
-
-_
-        },
-    dig_leaf => {
-        summary => 'Whether to dig leafs',
-        schema => 'bool',
-        description => <<'_',
-
-This feature mimics what's seen on GitHub. If a directory entry only contains a
-single entry, it will directly show the subentry (and subsubentry and so on) to
-save a number of tab presses.
-
-_
-        },
 );
 
 our $OPT_CI          = ($ENV{COMPLETE_OPT_CI}          // 1) ? 1:0;
@@ -126,17 +46,13 @@ might change from release to release.
 
 =head2 C<$Complete::Common::OPT_CI> => bool (default: from COMPLETE_OPT_CI or 1)
 
-If set to 1, matching is done case-insensitively. This setting should be
-consulted as the default for all C<ci> argument in the C<complete_*> functions.
-But users can override this setting by providing value to C<ci> argument.
+If set to 1, matching is done case-insensitively.
 
 In bash/readline, this is akin to setting C<completion-ignore-case>.
 
 =head2 C<$Complete::Common::OPT_WORD_MODE> => bool (default: from COMPLETE_OPT_WORD_MODE or 1)
 
-If set to 1, enable word-mode matching. This setting should be consulted as the
-default for all C<word_mode> argument in the C<complete_*> functions. But users
-can override this setting by providing value to C<word_mode> argument.
+If set to 1, enable word-mode matching.
 
 Word mode matching is normally only done when exact matching fails to return any
 candidate. To give you an idea of how word-mode matching works, you can run
@@ -151,10 +67,9 @@ word is positioned near the end of the string.
 
 =head2 C<$Complete::Common::OPT_FUZZY> => int (default: from COMPLETE_OPT_FUZZY or 1)
 
-Enable fuzzy matching. The greater the number, the greater the tolerance. To
-disable fuzzy matching, set to 0. This setting should be consulted for every
-C<fuzzy> argument in the C<complete_*> functions. But users can override this
-setting by providing value to C<fuzzy> argumnt.
+Enable fuzzy matching (matching even though there are some spelling mistakes).
+The greater the number, the greater the tolerance. To disable fuzzy matching,
+set to 0.
 
 Fuzzy matching is normally only done when exact matching and word-mode matching
 fail to return any candidate.
