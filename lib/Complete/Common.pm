@@ -62,8 +62,9 @@ all available word even non-adjacent ones. For example, if you have C<dua-d> and
 the choices are (C<dua-tiga>, C<dua-empat>, C<dua-lima-delapan>) then
 C<dua-lima-delapan> will match because C<d> matches C<delapan> even though the
 word is not adjacent. This is convenient when you have strings that are several
-or many words long: you can just type the word that you remember even though the
-word is positioned near the end of the string.
+or many words long: you can just type the starting letters of some of the words
+instead of just the starting letters of the whole string (which might need to be
+quite long before producing a unique match).
 
 =head2 C<$Complete::Common::OPT_FUZZY> => int (default: from COMPLETE_OPT_FUZZY or 1)
 
