@@ -27,6 +27,7 @@ our %arg_word = (
 
 our $OPT_CI          = ($ENV{COMPLETE_OPT_CI}          // 1) ? 1:0;
 our $OPT_WORD_MODE   = ($ENV{COMPLETE_OPT_WORD_MODE}   // 1) ? 1:0;
+our $OPT_CHAR_MODE   = ($ENV{COMPLETE_OPT_CHAR_MODE}   // 1) ? 1:0;
 our $OPT_FUZZY       = ($ENV{COMPLETE_OPT_FUZZY}       // 1)+0;
 our $OPT_MAP_CASE    = ($ENV{COMPLETE_OPT_MAP_CASE}    // 1) ? 1:0;
 our $OPT_EXP_IM_PATH = ($ENV{COMPLETE_OPT_EXP_IM_PATH} // 1) ? 1:0;
@@ -66,14 +67,26 @@ or many words long: you can just type the starting letters of some of the words
 instead of just the starting letters of the whole string (which might need to be
 quite long before producing a unique match).
 
+=head2 C<$Complete::Common::OPT_CHAR_MODE> => bool (default: from COMPLETE_OPT_CHAR_MODE or 1)
+
+If set to 1, enable character-mode matching.
+
+This mode is like word-mode matching, except it works on a
+character-by-character basis. Basically, it will match if a word contains any
+letters of the string in the correct order. For example, C<ap> will match C<ap>,
+C<amp>, C<slap>, or C<cramp> (but will not match C<pa> or C<pram>).
+
+Character-mode matching is normally only done when exact matching and word-mode
+fail to return any candidate.
+
 =head2 C<$Complete::Common::OPT_FUZZY> => int (default: from COMPLETE_OPT_FUZZY or 1)
 
 Enable fuzzy matching (matching even though there are some spelling mistakes).
 The greater the number, the greater the tolerance. To disable fuzzy matching,
 set to 0.
 
-Fuzzy matching is normally only done when exact matching and word-mode matching
-fail to return any candidate.
+Fuzzy matching is normally only done when exact matching, word-mode, and
+char-mode matching fail to return any candidate.
 
 =head2 C<$Complete::Common::OPT_MAP_CASE> => bool (default: from COMPLETE_OPT_MAP_CASE or 1)
 
