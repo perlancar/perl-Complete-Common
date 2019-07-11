@@ -1,9 +1,9 @@
-0.22    2016-01-05 (PERLANCAR)
+0.22    2016-01-05  Released-By: PERLANCAR
 
 	- Add $OPT_CHAR_MODE.
 
 
-0.21    2015-11-29 (PERLANCAR)
+0.21    2015-11-29  Released-By: PERLANCAR
 
 	- [Removed] Remove %args_common_opts, %args_path_opts, for more
 	  consistent experience we want to encourage complete_* functions
@@ -11,18 +11,18 @@
 	  options.
 
 
-0.20    2015-11-29 (PERLANCAR)
+0.20    2015-11-29  Released-By: PERLANCAR
 
 	- [Bugfix] Do not export $OPT_* because they will be copied and
 	  setting Complete::Common's version won't take effect later.
 
 
-0.19    2015-11-29 (PERLANCAR)
+0.19    2015-11-29  Released-By: PERLANCAR
 
 	- Fix Exporter setting, derp.
 
 
-0.18    2015-11-29 (PERLANCAR)
+0.18    2015-11-29  Released-By: PERLANCAR
 
         - Fill out common arguments.
 
@@ -33,7 +33,7 @@
         - Merge Complete::Setting and Complete::Args into Complete::Common.
 
 
-0.17    2015-11-28 (PERLANCAR)
+0.17    2015-11-28  Released-By: PERLANCAR
 
         - First release, split from Complete distribution and add
           Complete::Args.
